@@ -17,8 +17,6 @@ public class RequestHeaderServlet extends HttpServlet {
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // http 메소드 첫 라인 불러오기
         printStartLine(request);
-        
-
     }
 
     private static void printStartLine(HttpServletRequest request) {
@@ -35,5 +33,4 @@ public class RequestHeaderServlet extends HttpServlet {
         System.out.println("--- REQUEST-LINE - end ---");
         System.out.println();
     }
-
 }
