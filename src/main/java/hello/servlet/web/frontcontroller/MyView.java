@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class MyView {
-    private String viewPath;
+    private String viewPath; // "WEB-INF/views/new-form.jsp"
 
     public MyView(String viewPath) {
         this.viewPath = viewPath;
