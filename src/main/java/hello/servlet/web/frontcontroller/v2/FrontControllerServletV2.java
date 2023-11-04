@@ -37,6 +37,7 @@ public class FrontControllerServletV2 extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
+
         // new MyView("/WEB-INF/views/new-form.jsp")
         MyView view = controller.process(request, response);
         view.render(request, response);

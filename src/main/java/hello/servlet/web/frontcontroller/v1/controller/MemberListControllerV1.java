@@ -16,6 +16,7 @@ public class MemberListControllerV1 implements ControllerV1 {
 
     @Override
     public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         List<Member> members = memberRepository.findAll(); // 조회
 
         request.setAttribute("member", members); // 모델에 담기
