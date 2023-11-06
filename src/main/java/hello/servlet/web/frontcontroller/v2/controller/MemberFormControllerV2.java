@@ -14,5 +14,4 @@ public class MemberFormControllerV2 implements ControllerV2 {
         MyView myView = new MyView("/WEB-INF/views/new-form.jsp");
         return myView;
     }
-
 }
