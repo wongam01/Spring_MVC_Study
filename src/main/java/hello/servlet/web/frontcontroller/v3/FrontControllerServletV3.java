@@ -2,10 +2,9 @@ package hello.servlet.web.frontcontroller.v3;
 
 import hello.servlet.web.frontcontroller.ModelView;
 import hello.servlet.web.frontcontroller.MyView;
-import hello.servlet.web.frontcontroller.v2.ControllerV2;
 import hello.servlet.web.frontcontroller.v3.controller.MemberFormControllerV3;
-import hello.servlet.web.frontcontroller.v3.controller.MemberListControllerV3;
 import hello.servlet.web.frontcontroller.v3.controller.MemberSaveControllerV3;
+import hello.servlet.web.frontcontroller.v3.controller.MemberListControllerV3;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -23,9 +22,9 @@ public class FrontControllerServletV3 extends HttpServlet {
     private Map<String, ControllerV3> controllerMap = new HashMap<>();
 
     public FrontControllerServletV3() {
-        controllerMap.put("/front-controller/v3/mebers/new-form", new MemberFormControllerV3());
-        controllerMap.put("/front-controller/v3/mebers/save", new MemberSaveControllerV3());
-        controllerMap.put("/front-controller/v3/mebers", new MemberListControllerV3());
+        controllerMap.put("/front-controller/v2/mebers/new-form", new MemberFormControllerV3());
+        controllerMap.put("/front-controller/v1/mebers/save", new MemberSaveControllerV3());
+        controllerMap.put("/front-controller/v2/mebers", new MemberListControllerV3());
     }
 
     @Override
@@ -38,11 +37,27 @@ public class FrontControllerServletV3 extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
-        // paramMap
+
+        // paramMap 넘기기
+        Map<String, String> paramMap = createParamMap(request);
+
+        ModelView mv = controller.process(paramMap);
+
+        String viewName = mv.getViewName();// 논리 이름
+         // "WEB-INF/views/new-form.jsp
+
+        MyView view = viewResolver(viewName);
+        view.render(mv.getModel(),request, response);
     }
 
-    private MyView viewResolver(String viewName) {
-        return new MyView("/WEB-INF/views/" + viewName + ".jsp");
+    private static MyView viewResolver(String viewName) {
+        return new MyView("WEB-INF/views/" + viewName + ".jsp");
+    }
 
+    private static Map<String, String> createParamMap(HttpServletRequest request) {
+        Map<String, String> paramMap = new HashMap<>();
+        request.getParameterNames().asIterator()
+                .forEachRemaining(paramName -> paramMap.put(paramName, request.getParameter(paramName)));
+        return paramMap;
     }
 }
