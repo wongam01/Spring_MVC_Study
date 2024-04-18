@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class MemberSaveControllerV2 implements ControllerV2 {
+
     private MemberRepository memberRepository = MemberRepository.getInstance();
     @Override
     public MyView process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -23,8 +24,6 @@ public class MemberSaveControllerV2 implements ControllerV2 {
 
         // Model 에 데이터를 보관한다.
         request.setAttribute("member", member);
-
-
 
         return new MyView("/WEB-INF/views/save-result.jsp");
     }
